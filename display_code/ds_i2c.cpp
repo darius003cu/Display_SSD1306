@@ -1,7 +1,6 @@
 #include "ds_i2c.h"
 #include <stdint.h>
 
-
 void i2c_send(uint8_t package[], uint8_t length_of_package){
 
   TWCR = (1 << 7) | (1 << 5) | (1 << 2);
@@ -11,10 +10,8 @@ void i2c_send(uint8_t package[], uint8_t length_of_package){
       TWDR = package[i];
       TWCR = (1 << 7) | (1 << 2);
       while(!(TWCR & (1 << 7)));
-      }
-
-  TWCR = (1 << 7) | (1 << 4) | (1 << 2);
-  
+  }
+  TWCR = (1 << 7) | (1 << 4) | (1 << 2); 
 }
 
 void i2c_send_zeroes(){
@@ -32,8 +29,6 @@ void i2c_send_zeroes(){
      TWDR = 0x00;
      TWCR = (1 << 7) | (1 << 2);
      while(!(TWCR & (1 << 7)));
-     }
-
+  }
   TWCR = (1 << 7) | (1 << 4) | (1 << 2);
-  
 }

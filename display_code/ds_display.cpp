@@ -18,14 +18,14 @@ uint8_t ch_vect[13][8] = {
 
 uint8_t disp_buffer[10];
 
-void display_init() {
+void display_init(){
   disp_buffer[0] = SLAVE_W;
   disp_buffer[1] = 0x00;
   disp_buffer[2] = 0xAF;
   i2c_send(disp_buffer, 3);
 }
 
-void charge_pump() {
+void charge_pump(){
   disp_buffer[0] = SLAVE_W;
   disp_buffer[1] = 0x00;
   disp_buffer[2] = 0x8D;
@@ -33,13 +33,11 @@ void charge_pump() {
   i2c_send(disp_buffer, 4);
 }
 
-
-void clear_page() {
+void clear_page(){
   i2c_send_zeroes();
 }
 
-
-void page_setup(uint8_t nr) {
+void page_setup(uint8_t nr){
   if(nr >= 0 && nr < 8)
     disp_buffer[2] = 0xB0 | nr;
   else
@@ -53,7 +51,7 @@ void page_setup(uint8_t nr) {
   i2c_send(disp_buffer, 5);
 }
 
-void display_reset() {
+void display_reset(){
   for(uint8_t i = 0; i < 8; i++) {
     page_setup(i);
     clear_page();

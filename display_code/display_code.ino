@@ -3,7 +3,7 @@
 #include "ds_i2c.h"
 #include "ds_display.h"
 
-int main(void) {
+int main(void){
   uint16_t adc_value;
   uint16_t vin;
   adc_setup();
@@ -12,7 +12,7 @@ int main(void) {
   display_reset();
   page_setup(0);
 
-  while(1) {
+  while(1){
     adc_value = adc_conversion();
     vin = adc_to_volts(adc_value);
 
