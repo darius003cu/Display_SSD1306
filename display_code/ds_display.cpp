@@ -38,10 +38,12 @@ void clear_page(){
 }
 
 void page_setup(uint8_t nr){
-  if(nr >= 0 && nr < 8)
+  if(nr >= 0 && nr < 8){
     disp_buffer[2] = 0xB0 | nr;
-  else
+  }
+  else{
     disp_buffer[2] = 0xB0;
+  }
     
   disp_buffer[0] = SLAVE_W;
   disp_buffer[1] = 0x00;
