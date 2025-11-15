@@ -40,10 +40,13 @@ void clear_page() {
 
 
 void page_setup(uint8_t nr) {
-  
+  if(nr >= 0 && nr < 8)
+    disp_buffer[2] = 0xB0 | nr;
+  else
+    disp_buffer[2] = 0xB0;
+    
   disp_buffer[0] = SLAVE_W;
   disp_buffer[1] = 0x00;
-  disp_buffer[2] = 0xB0 | nr;
   disp_buffer[3] = 0x00;
   disp_buffer[4] = 0x10;
 
@@ -57,21 +60,21 @@ void display_reset() {
   }
 }
 
-void character_print(uint8_t index) {
+void character_print(uint8_t index){
   if(index >= 0 && index < 13){
-  disp_buffer[0] = SLAVE_W;
-  disp_buffer[1] = 0x40;
-  for(uint8_t i=2; i<10; i++)
-    disp_buffer[i] = ch_vect[index][i - 2];
-  i2c_send(disp_buffer, 10);
+     disp_buffer[0] = SLAVE_W;
+     disp_buffer[1] = 0x40;
+     for(uint8_t i=2; i<10; i++){
+       disp_buffer[i] = ch_vect[index][i - 2];
+       }
+     i2c_send(disp_buffer, 10);
     }
-  else{
-    {
-  disp_buffer[0] = SLAVE_W;
-  disp_buffer[1] = 0x40;
-  for(uint8_t i=2; i<10; i++)
-    disp_buffer[i] = ch_vect[EMPTY][i - 2];
-  i2c_send(disp_buffer, 10);
+  else{   
+    disp_buffer[0] = SLAVE_W;
+    disp_buffer[1] = 0x40;
+    for(uint8_t i=2; i<10; i++){
+      disp_buffer[i] = ch_vect[EMPTY][i - 2];
     }
+    i2c_send(disp_buffer, 10); 
   }
 }
