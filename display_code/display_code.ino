@@ -10,7 +10,7 @@ int main(void) {
   display_init();
   charge_pump();
   display_reset();
-  page_setup(0);
+  page_setup(255);
 
   while(1) {
     adc_value = adc_conversion();
