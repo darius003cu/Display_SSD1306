@@ -66,9 +66,9 @@ void character_print(uint8_t index){
      disp_buffer[1] = 0x40;
      for(uint8_t i=2; i<10; i++){
        disp_buffer[i] = ch_vect[index][i - 2];
-       }
+     }
      i2c_send(disp_buffer, 10);
-    }
+  }
   else{   
     disp_buffer[0] = SLAVE_W;
     disp_buffer[1] = 0x40;
