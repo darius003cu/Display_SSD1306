@@ -10,7 +10,6 @@
 #define START           0
 #define STOP            1
 
-void i2c_toggle(uint8_t state);
-void i2c_send(uint8_t package[], uint8_t length_of_package);
+void i2c_send(uint8_t state, uint8_t package[], uint8_t length_of_package);
 
 #endif

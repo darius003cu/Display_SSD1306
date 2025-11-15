@@ -18,37 +18,37 @@ uint8_t ch_vect[13][8] = {
 
 void display_init() {
   uint8_t to_send[] = {SLAVE_W, 0, 0xAF};
-  i2c_toggle(START);
-  i2c_send(to_send, 3);
-  i2c_toggle(STOP);
+  i2c_send(START_TRANSMISSION, 0, 0);
+  i2c_send(SENDING_DATA, to_send, 3);
+  i2c_send(END_TRANSMISSION, 0, 0);
 }
 
 void charge_pump() {
   uint8_t to_send[] = {SLAVE_W, 0, 0x8D, 0x14};
-  i2c_toggle(START);
-  i2c_send(to_send, 4);
-  i2c_toggle(STOP);
+  i2c_send(START_TRANSMISSION, 0, 0);
+  i2c_send(SENDING_DATA, to_send, 4);
+  i2c_send(END_TRANSMISSION, 0, 0);
 }
 
 
 void clear_page() {
   uint8_t to_send[] = {SLAVE_W, 0x40};
   uint8_t zero[1] = {0x00};
-  i2c_toggle(START);
-  i2c_send(to_send, 2);
+  i2c_send(START_TRANSMISSION, 0, 0);
+  i2c_send(SENDING_DATA, to_send, 2);
   for(uint8_t i=0; i<128; i++)
      {
-     i2c_send(zero, 1);
+     i2c_send(SENDING_DATA, zero, 1);
      }
-  i2c_toggle(STOP);
+  i2c_send(END_TRANSMISSION, 0, 0);
 }
 
 void page_setup(uint8_t nr) {
   uint8_t page = 0xB0 | nr;
   uint8_t to_send[] = {SLAVE_W, 0, page, 0x00, 0x10};
-  i2c_toggle(START);
-  i2c_send(to_send, 5);
-  i2c_toggle(STOP);
+  i2c_send(START_TRANSMISSION, 0, 0);
+  i2c_send(SENDING_DATA, to_send, 5);
+  i2c_send(END_TRANSMISSION, 0, 0);
 }
 
 void display_reset() {
@@ -61,22 +61,22 @@ void display_reset() {
 void character_print(uint8_t index) {
   if(index >= 0 && index < 13){
   uint8_t address_send[] = {SLAVE_W, 0x40};
-  i2c_toggle(START);
-  i2c_send(address_send, 2);
+  i2c_send(START_TRANSMISSION, 0, 0);
+  i2c_send(SENDING_DATA, address_send, 2);
   for(uint8_t i=0; i<8; i++) {
    uint8_t temp[1] = {ch_vect[index][i]};
-   i2c_send(temp, 1);
+   i2c_send(SENDING_DATA, temp, 1);
   }
-  i2c_toggle(STOP);
+  i2c_send(END_TRANSMISSION, 0, 0);
   }
   else{
     uint8_t address_send[] = {SLAVE_W, 0x40};
-    i2c_toggle(START);
-    i2c_send(address_send, 2);
+    i2c_send(START_TRANSMISSION, 0, 0);
+    i2c_send(SENDING_DATA, address_send, 2);
     for(uint8_t i=0; i<8; i++) {
       uint8_t temp[1] = {ch_vect[EMPTY][i]};
-      i2c_send(temp, 1);
+      i2c_send(SENDING_DATA, temp, 1);
     }
-  i2c_toggle(STOP);
+  i2c_send(END_TRANSMISSION, 0, 0);
   }
 }

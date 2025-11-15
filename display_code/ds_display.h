@@ -4,10 +4,13 @@
 #include <stdint.h>
 #include "ds_i2c.h"
 
-#define VOLT            10
-#define EMPTY           11 
-#define DOT             12
-#define SLAVE_W         ((0x3C << 1) | 0)
+#define START_TRANSMISSION  1
+#define END_TRANSMISSION    0
+#define SENDING_DATA        2
+#define VOLT                10
+#define EMPTY               11 
+#define DOT                 12
+#define SLAVE_W             ((0x3C << 1) | 0)
 
 void display_init(void);
 void charge_pump(void);
