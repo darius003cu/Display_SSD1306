@@ -16,7 +16,7 @@ uint8_t ch_vect[13][8] = {
   {0x00, 0x00, 0x00, 0xC0, 0xC0, 0x00, 0x00, 0x00}
 };
 
-uint8_t disp_buffer[130];
+uint8_t disp_buffer[10];
 
 void display_init() {
   disp_buffer[0] = SLAVE_W;
@@ -35,11 +35,7 @@ void charge_pump() {
 
 
 void clear_page() {
-  disp_buffer[0] = SLAVE_W;
-  disp_buffer[1] = 0x40;
-  for(uint8_t i = 2; i< 130; i++)
-    disp_buffer[i] = 0x00;
-    i2c_send(disp_buffer, 130);
+  i2c_send_zeroes();
 }
 
 
